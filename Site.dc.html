@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#fff;font-family:'Manrope',sans-serif;color:#0a1f33;}
+  a{color:#0099CC}
+  a:hover{color:#007aa3}
+  @keyframes menuIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+</style>
+</helmet>
+
+<div style="max-width:480px;margin:0 auto;min-height:100vh;position:relative;box-shadow:0 0 40px rgba(0,0,0,.06)">
+
+  <div style="position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:20;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.08)">
+    <button aria-label="menu" onClick="{{ toggleMenu }}" style="background:none;border:2px solid #0a1f33;border-radius:8px;width:38px;height:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer">
+      <span style="display:block;width:18px;height:2px;background:#0a1f33"></span>
+      <span style="display:block;width:18px;height:2px;background:#0a1f33"></span>
+      <span style="display:block;width:18px;height:2px;background:#0a1f33"></span>
+    </button>
+    <div style="position:relative">
+      <select value="{{ lang }}" onChange="{{ onLangChange }}" style="appearance:none;font:600 14px 'Manrope',sans-serif;border:2px solid #0a1f33;border-radius:8px;padding:8px 28px 8px 12px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22><path d=%22M0 0l5 6 5-6z%22 fill=%22%230a1f33%22/></svg>') no-repeat right 10px center;color:#0a1f33;cursor:pointer">
+        <option value="EN">EN</option>
+        <option value="RU">RU</option>
+        <option value="KZ">KZ</option>
+      </select>
+    </div>
+  </div>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:30;background:rgba(10,31,51,.5)" onClick="{{ toggleMenu }}">
+      <div style="animation:menuIn .22s ease-out;position:absolute;top:0;right:0;bottom:0;width:78%;max-width:340px;background:#fff;padding:20px;display:flex;flex-direction:column;gap:4px" onClick="{{ stopProp }}">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+          <button aria-label="close" onClick="{{ toggleMenu }}" style="background:none;border:none;font-size:26px;line-height:1;color:#0a1f33;cursor:pointer">×</button>
+        </div>
+        <a href="#home" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a1f33;font:700 20px 'Manrope',sans-serif;padding:14px 8px;border-bottom:1px solid rgba(0,0,0,.08)">{{ t.menuHome }}</a>
+        <a href="#home" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a1f33;font:700 20px 'Manrope',sans-serif;padding:14px 8px;border-bottom:1px solid rgba(0,0,0,.08)">{{ t.menuFacts }}</a>
+        <a href="#whoami" onClick="{{ toggleMenu }}" style="text-decoration:none;color:#0a1f33;font:700 20px 'Manrope',sans-serif;padding:14px 8px">{{ t.menuWhoAmI }}</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+  <section id="home" style="padding:86px 20px 40px;background:linear-gradient(180deg,#eaf7fb 0%,#fff 65%)">
+    <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,#0099CC 70%,#FFD100 70%);margin-bottom:20px"></div>
+    <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12);margin-bottom:22px;background:#eaf7fb">
+      <img src="site-images/hero-family.png" alt="family with pets" style="width:100%;display:block;object-fit:contain"/>
+    </div>
+    <div style="text-align:center;font:800 46px 'Manrope',sans-serif;color:#0099CC;margin-bottom:6px">{{ statNumber }}</div>
+    <p style="text-align:center;font:600 17px/1.45 'Nunito',sans-serif;color:#0a1f33;margin:0 0 26px;text-wrap:pretty">{{ t.heroText1 }}</p>
+    <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.12);margin-bottom:18px;background:#fff">
+      <img src="site-images/biz-birge.png" alt="Біз біргеміз" style="width:100%;display:block;object-fit:contain"/>
+    </div>
+    <p style="text-align:center;font:600 17px/1.45 'Nunito',sans-serif;color:#0a1f33;margin:0 0 8px;text-wrap:pretty">{{ t.heroText2 }}</p>
+    <div style="display:flex;justify-content:center;margin-top:8px">
+      <a href="#whoami" aria-label="next" style="text-decoration:none;width:48px;height:48px;border-radius:50%;background:#0099CC;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(0,153,204,.35)">↓</a>
+    </div>
+  </section>
+
+  <section id="whoami" style="padding:36px 20px 44px;background:#fff">
+    <h2 style="text-align:center;font:800 26px 'Manrope',sans-serif;margin:0 0 22px">{{ t.whoAmI }}</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <button onClick="{{ pickOwner }}" style="all:unset;cursor:pointer;border-radius:16px;overflow:hidden;border:2px solid #0a1f33;box-shadow:0 4px 10px rgba(0,0,0,.06);background:#fff">
+        <img src="site-images/persona-owner.png" alt="pet owner" style="width:100%;max-height:220px;object-fit:contain;display:block"/>
+        <div style="padding:12px;text-align:center;font:700 17px 'Manrope',sans-serif">{{ t.personaOwner }}</div>
+      </button>
+      <button onClick="{{ pickLover }}" style="all:unset;cursor:pointer;border-radius:16px;overflow:hidden;border:2px solid #0a1f33;box-shadow:0 4px 10px rgba(0,0,0,.06);background:#fff">
+        <img src="site-images/persona-lover.png" alt="pet lover" style="width:100%;max-height:220px;object-fit:contain;display:block"/>
+        <div style="padding:12px;text-align:center;font:700 17px 'Manrope',sans-serif">{{ t.personaLover }}</div>
+      </button>
+      <button onClick="{{ pickDislike }}" style="all:unset;cursor:pointer;border-radius:16px;overflow:hidden;border:2px solid #0a1f33;box-shadow:0 4px 10px rgba(0,0,0,.06);background:#fff">
+        <img src="site-images/persona-dislike.png" alt="not a pet person" style="width:100%;max-height:220px;object-fit:contain;display:block"/>
+        <div style="padding:12px;text-align:center;font:700 17px 'Manrope',sans-serif">{{ t.personaDislike }}</div>
+      </button>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ hasPersona }}" hint-placeholder-val="{{ false }}">
+    <section id="persona-detail" style="padding:86px 20px 56px;background:#f7fbfc;min-height:100vh">
+      <div style="border-radius:14px;background:#eaf7fb;border:2px solid #0099CC;padding:16px;margin-bottom:22px">
+        <p style="margin:0;font:700 17px/1.4 'Nunito',sans-serif;color:#0a1f33;text-wrap:pretty">{{ personaContent.validation }}</p>
+      </div>
+      <h3 style="font:800 19px 'Manrope',sans-serif;margin:0 0 14px">{{ t.stepsTitle }}</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:26px">
+        <sc-for list="{{ personaContent.steps }}" as="step" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:12px;border:2px solid #0a1f33;border-radius:12px;padding:10px 14px;background:#fff">
+            <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#FFD100;display:flex;align-items:center;justify-content:center;font-weight:800">✓</span>
+            <span style="font:600 15px 'Nunito',sans-serif">{{ step }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <h3 style="font:800 19px 'Manrope',sans-serif;margin:0 0 14px">{{ t.helpTitle }}</h3>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ personaContent.resources }}" as="res" hint-placeholder-count="2">
+          <div style="display:flex;align-items:center;gap:12px;border:2px dashed #0099CC;border-radius:12px;padding:10px 14px;background:#fff">
+            <span style="flex:none;font-size:18px">📍</span>
+            <span style="font:600 15px 'Nunito',sans-serif">{{ res }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="text-align:center;margin-top:28px">
+        <button onClick="{{ backToWhoAmI }}" style="all:unset;cursor:pointer;font:700 15px 'Manrope',sans-serif;color:#0099CC">{{ t.chooseAnother }}</button>
+      </div>
+    </section>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:420,&quot;height&quot;:900},&quot;statNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;≈286,000&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;defaultLanguage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;EN&quot;,&quot;options&quot;:[&quot;EN&quot;,&quot;RU&quot;,&quot;KZ&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;primaryColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0099CC&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0099CC&quot;,&quot;#0072A3&quot;,&quot;#00B4D8&quot;],&quot;section&quot;:&quot;Style&quot;}}">
+class Component extends DCLogic {
+  static T = {
+    EN: {
+      menuHome: "Home", menuFacts: "Facts & statistics", menuWhoAmI: "Who am I?",
+      heroText1: "stray pets are killed every year in Kazakhstan, but the problem is far from being solved, because this fights the consequences, not the reasons",
+      heroText2: "Only together can we solve this — no matter how you feel about animals.",
+      whoAmI: "Who am I?",
+      personaOwner: "I'm a pet owner", personaLover: "I love pets", personaDislike: "I don't like pets",
+      stepsTitle: "Do these simple steps:", helpTitle: "What to do if I:", chooseAnother: "← Choose another",
+      details: {
+        owner: {
+          validation: "Loving your pet is a great start. Real responsibility means a bit more — and it's easier than you think.",
+          steps: ["Sterilize your pet", "Never abandon — respect others", "Microchip & ID tag your pet"],
+          resources: ["Met a stray animal (guide)", "Witnessed cruelty to animals", "Lost my pet"]
+        },
+        lover: {
+          validation: "Your love for animals matters. Channeled well, it can change lives — including yours.",
+          steps: ["Help stray pets nearby", "Help a shelter", "Help others to know more"],
+          resources: ["Met a stray animal (guide)", "Witnessed cruelty to animals", "Want to get a pet"]
+        },
+        dislike: {
+          validation: "Fair enough — not everyone has to love animals. But safety & order benefit everyone, including you.",
+          steps: ["Donate for sterilisation", "Report strays to be sterilized, not harmed", "Help others to know more"],
+          resources: ["Report a stray in your area"]
+        }
+      }
+    },
+    RU: {
+      menuHome: "Главная", menuFacts: "Факты и статистика", menuWhoAmI: "Кто я?",
+      heroText1: "бездомных животных погибают каждый год в Казахстане, но проблема далека от решения — это борьба с последствиями, а не с причинами",
+      heroText2: "Только вместе мы можем решить это — независимо от того, как вы относитесь к животным.",
+      whoAmI: "Кто я?",
+      personaOwner: "У меня есть питомец", personaLover: "Я люблю животных", personaDislike: "Мне не нравятся животные",
+      stepsTitle: "Сделайте эти простые шаги:", helpTitle: "Что делать, если я:", chooseAnother: "← Выбрать другое",
+      details: {
+        owner: {
+          validation: "Любить своего питомца — это отличное начало. Настоящая ответственность требует немного больше — и это проще, чем вы думаете.",
+          steps: ["Стерилизуйте своего питомца", "Никогда не бросайте — уважайте других", "Чип и бирка с данными вашего питомца"],
+          resources: ["Встретил бездомное животное (гид)", "Стал свидетелем жестокости к животным", "Потерял своего питомца"]
+        },
+        lover: {
+          validation: "Ваша любовь к животным важна. Направленная в нужную сторону, она может изменить жизни — включая вашу.",
+          steps: ["Помогите бездомным животным поблизости", "Помогите приюту", "Помогите другим узнать больше"],
+          resources: ["Встретил бездомное животное (гид)", "Стал свидетелем жестокости к животным", "Хочу завести питомца"]
+        },
+        dislike: {
+          validation: "Это нормально — не всем обязательно любить животных. Но безопасность и порядок выгодны всем, включая вас.",
+          steps: ["Пожертвуйте на стерилизацию", "Сообщайте о бездомных животных для стерилизации, а не причинения вреда", "Помогите другим узнать больше"],
+          resources: ["Сообщить о бездомном животном в вашем районе"]
+        }
+      }
+    },
+    KZ: {
+      menuHome: "Басты бет", menuFacts: "Деректер мен статистика", menuWhoAmI: "Мен кіммін?",
+      heroText1: "қараусыз үй жануары жыл сайын Қазақстанда өледі, бірақ мәселе әлі шешілмеген — себебі бұл салдармен күрес, себептермен емес",
+      heroText2: "Тек бірге ғана мұны шеше аламыз — жануарларға қалай қарайтыныңызға қарамастан.",
+      whoAmI: "Мен кіммін?",
+      personaOwner: "Үй жануарының иесімін", personaLover: "Жануарларды жақсы көремін", personaDislike: "Жануарларды ұнатпаймын",
+      stepsTitle: "Осы қарапайым қадамдарды жасаңыз:", helpTitle: "Егер мен:", chooseAnother: "← Басқасын таңдау",
+      details: {
+        owner: {
+          validation: "Үй жануарыңызды жақсы көру — тамаша бастама. Нағыз жауапкершілік сәл көбірек нәрсені талап етеді — және бұл сіз ойлағаннан оңай.",
+          steps: ["Үй жануарыңызды стерилизациялаңыз", "Ешқашан тастамаңыз — басқаларды құрметтеңіз", "Чип пен жеке белгі"],
+          resources: ["Қараусыз жануарды кездестірсем (нұсқаулық)", "Жануарларға қатыгездікті көрсем", "Үй жануарымды жоғалтсам"]
+        },
+        lover: {
+          validation: "Жануарларға деген сүйіспеншілігіңіз маңызды. Дұрыс бағытталса, ол өмірлерді өзгерте алады — соның ішінде сіздің де.",
+          steps: ["Маңайдағы қараусыз жануарларға көмектесіңіз", "Панаға көмектесіңіз", "Басқаларға көбірек білуге көмектесіңіз"],
+          resources: ["Қараусыз жануарды кездестірсем (нұсқаулық)", "Жануарларға қатыгездікті көрсем", "Үй жануарын алғым келеді"]
+        },
+        dislike: {
+          validation: "Бәрі бір емес — барлығы жануарларды жақсы көруі міндетті емес. Бірақ қауіпсіздік пен тәртіп бәріне пайдалы, соның ішінде сізге де.",
+          steps: ["Стерилизацияға қаражат жинаңыз", "Зиян тигізбей, стерилизация үшін қараусыз жануарлар туралы хабарлаңыз", "Басқаларға көбірек білуге көмектесіңіз"],
+          resources: ["Ауданыңыздағы қараусыз жануар туралы хабарлаңыз"]
+        }
+      }
+    }
+  };
+
+  state = { lang: this.props.defaultLanguage ?? "EN", menuOpen: false, persona: null };
+
+  toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  stopProp = (e) => e.stopPropagation();
+  onLangChange = (e) => this.setState({ lang: e.target.value });
+
+  choose(key) {
+    this.setState({ persona: key });
+    window.scrollTo(0, 0);
+  }
+  pickOwner = () => this.choose("owner");
+  pickLover = () => this.choose("lover");
+  pickDislike = () => this.choose("dislike");
+  backToWhoAmI = () => {
+    this.setState({ persona: null });
+    setTimeout(() => {
+      const el = document.getElementById("whoami");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  };
+
+  renderVals() {
+    const t = Component.T[this.state.lang];
+    const persona = this.state.persona;
+    return {
+      lang: this.state.lang,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: this.toggleMenu,
+      stopProp: this.stopProp,
+      onLangChange: this.onLangChange,
+      t,
+      statNumber: this.props.statNumber ?? "≈286,000",
+      pickOwner: this.pickOwner,
+      pickLover: this.pickLover,
+      pickDislike: this.pickDislike,
+      backToWhoAmI: this.backToWhoAmI,
+      showHome: !persona,
+      hasPersona: !!persona,
+      personaContent: persona ? t.details[persona] : { validation: "", steps: [], resources: [] }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
